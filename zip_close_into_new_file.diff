@@ -1,0 +1,71 @@
+--- lib/zip.h	2012-03-15 12:28:05.000000000 +0300
++++ lib/zip.h	2012-08-11 12:28:46.471708040 +0400
+@@ -208,6 +208,7 @@
+ ZIP_EXTERN zip_int64_t zip_add(struct zip *, const char *, struct zip_source *);
+ ZIP_EXTERN zip_int64_t zip_add_dir(struct zip *, const char *);
+ ZIP_EXTERN int zip_close(struct zip *);
++ZIP_EXTERN int zip_close_into_new_file(struct zip *, const char *);
+ ZIP_EXTERN int zip_delete(struct zip *, zip_uint64_t);
+ ZIP_EXTERN void zip_error_clear(struct zip *);
+ ZIP_EXTERN void zip_error_get(struct zip *, int *, int *);
+--- lib/zip_close.c	2012-03-15 12:28:05.000000000 +0300
++++ lib/zip_close.c	2012-08-11 22:35:52.535914600 +0400
+@@ -66,10 +66,13 @@
+ };
+ 
+ 
++ZIP_EXTERN int 
++zip_close(struct zip *za){
++	return zip_close_into_new_file(za, NULL);
++}
+ 
+-ZIP_EXTERN int
+-zip_close(struct zip *za)
+-{
++ZIP_EXTERN int 
++zip_close_into_new_file(struct zip *za, const char *output_file_name){
+     int survivors;
+     int i, j, error;
+     char *temp;
+@@ -136,8 +139,20 @@
+ 	    return -1;
+ 	}
+     }
+-
+-    if ((temp=_zip_create_temp_output(za, &out)) == NULL) {
++    if (output_file_name) {
++        if (!(out = fopen(output_file_name,"wb"))) {
++            _zip_error_set(&za->error, ZIP_ER_TMPOPEN, errno);
++            return -1;
++        }
++#ifdef _WIN32
++    /*
++      According to Pierre Joye, Windows in some environments per
++      default creates text files, so force binary mode.
++    */
++    _setmode(_fileno(out), _O_BINARY );
++#endif
++    }
++    else if ((temp=_zip_create_temp_output(za, &out)) == NULL) {
+ 	_zip_cdir_free(cd);
+ 	free(filelist);
+ 	return -1;
+@@ -322,7 +337,7 @@
+ 	za->zp = NULL;
+ 	reopen_on_error = 1;
+     }
+-    if (_zip_rename(temp, za->zn) != 0) {
++    if ((output_file_name == NULL) && (_zip_rename(temp, za->zn) != 0)) {
+ 	_zip_error_set(&za->error, ZIP_ER_RENAME, errno);
+ 	remove(temp);
+ 	free(temp);
+@@ -339,7 +354,8 @@
+ #endif
+ 
+     _zip_free(za);
+-    free(temp);
++    if (output_file_name == NULL)
++        free(temp);
+     
+     return 0;
+ }
