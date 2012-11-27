@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<FILL DocFileName="">
+  <Fields>
+    <Field Name="isp_dolzh">Должность1</Field>
+    <Field Name="isp_name">Фамилия Имя Отчество1</Field>
+	<Field Name="null" TypeOut="copy"> </Field>
+    <Field Name="isp_dolzh">Должность2</Field>
+    <Field Name="isp_name">Фамилия Имя Отчество2</Field>
+	<Field Name="null" TypeOut="copy"> </Field>
+    <Field Name="isp_dolzh">Должность3</Field>
+    <Field Name="isp_name">Фамилия Имя Отчество3</Field>
+	<Field Name="null" TypeOut="copy"> </Field>
+    <Field Name="isp_dolzh">Должность4</Field>
+    <Field Name="isp_name">Фамилия Имя Отчество4</Field>
+    <Field Name="main_fld">Заголовок</Field>
+  </Fields>
+</FILL>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<FILL DocFileName="">
+  <Fields>
+    <Field Name="fld1" TypeOut="code">
+&lt;text:p text:style-name=&quot;P5&quot;&gt;&lt;text:span text:style-name=&quot;T1&quot;&gt;Inserted item 1&lt;/text:span&gt;&lt;/text:p&gt;
+&lt;/text:list-item&gt;
+&lt;text:list-item&gt;
+&lt;text:p text:style-name=&quot;P5&quot;&gt;&lt;text:span text:style-name=&quot;T1&quot;&gt;Inserted item 2&lt;/text:span&gt;&lt;/text:p&gt;
+&lt;/text:list-item&gt;
+&lt;text:list-item&gt;
+&lt;text:p text:style-name=&quot;P5&quot;&gt;&lt;text:span text:style-name=&quot;T1&quot;&gt;Inserted item 3&lt;/text:span&gt;&lt;/text:p&gt;
+	</Field>
+    <Field Name="fld2" TypeOut="code"> </Field>	
+  </Fields>
+</FILL>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<FILL DocFileName="">
+  <Fields>
+    <Field Name="main_fld">Заголовок</Field>
+    <Field Name="isp_dolzh">Должность</Field>
+    <Field Name="isp_name">Фамилия Имя Отчество</Field>
+  </Fields>
+</FILL>

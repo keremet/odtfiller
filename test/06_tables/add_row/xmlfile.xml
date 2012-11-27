@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<FILL DocFileName="">
+  <Fields>
+  <Field Name="Таблица1" TypeOut="code_addrow">
+&lt;table:table-row&gt;
+&lt;table:table-cell table:style-name=&quot;Таблица1.A2&quot; office:value-type=&quot;string&quot;&gt;
+&lt;text:p text:style-name=&quot;Table_20_Contents&quot;&gt;Added Content&lt;text:span text:style-name=&quot;T1&quot;&gt;1&lt;/text:span&gt;&lt;/text:p&gt;
+&lt;/table:table-cell&gt;
+&lt;table:table-cell table:style-name=&quot;Таблица1.B2&quot; office:value-type=&quot;string&quot;&gt;
+&lt;text:p text:style-name=&quot;Table_20_Contents&quot;&gt;Added Content&lt;text:span text:style-name=&quot;T1&quot;&gt;2&lt;/text:span&gt;&lt;/text:p&gt;
+&lt;/table:table-cell&gt;
+&lt;/table:table-row&gt;
+&lt;table:table-row&gt;
+&lt;table:table-cell table:style-name=&quot;Таблица1.A2&quot; office:value-type=&quot;string&quot;&gt;
+&lt;text:p text:style-name=&quot;Table_20_Contents&quot;&gt;Added Content&lt;text:span text:style-name=&quot;T1&quot;&gt;3&lt;/text:span&gt;&lt;/text:p&gt;
+&lt;/table:table-cell&gt;
+&lt;table:table-cell table:style-name=&quot;Таблица1.B2&quot; office:value-type=&quot;string&quot;&gt;
+&lt;text:p text:style-name=&quot;Table_20_Contents&quot;&gt;Added Content&lt;text:span text:style-name=&quot;T1&quot;&gt;4&lt;/text:span&gt;&lt;/text:p&gt;
+&lt;/table:table-cell&gt;
+&lt;/table:table-row&gt;  
+  </Field>
+  </Fields>
+</FILL>
