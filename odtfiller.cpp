@@ -20,6 +20,7 @@ extern "C"{
 #endif
 
 #include <string>
+#include <cstring>
 /*#include <sstream>
 #include <list>*/
 using namespace std;
@@ -244,7 +245,7 @@ void parseAndReplace(string *content, const string xmlStr){
 				replaceFieldWithParagraph(content, key, value);
 //			fprintf(stderr,"TypeOut4\n");				
 			continue;			
-		}
+    }
 		if((posTO=key.find("\" TypeOut=\"copyfile"))!=string::npos){			
 			string odtFileContent = getContent(value.c_str()); //Извлечь content.xml из odt			
 			renameStylesAndObjects(&odtFileContent, value);		
