@@ -1,5 +1,5 @@
 /*
-TODO: новый входной формат, закрытие файлов, регрессионные тесты (Unix и windows)
+TODO: РЅРѕРІС‹Р№ РІС…РѕРґРЅРѕР№ С„РѕСЂРјР°С‚, Р·Р°РєСЂС‹С‚РёРµ С„Р°Р№Р»РѕРІ, СЂРµРіСЂРµСЃСЃРёРѕРЅРЅС‹Рµ С‚РµСЃС‚С‹ (Unix Рё windows)
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,6 +20,7 @@ extern "C"{
 #endif
 
 #include <string>
+#include <cstring>
 /*#include <sstream>
 #include <list>*/
 using namespace std;
@@ -157,7 +158,7 @@ string getContent(const char* odtFileName){
     }	
     if ((idx=zip_name_locate(zs, "content.xml", ZIP_FL_NODIR|ZIP_FL_NOCASE)) != -1) {
 		struct zip_file *zf;
-	//Чтение содержимого		
+	//Р§С‚РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ		
 		string content="";
 		if ((zf=zip_fopen_index(zs, idx, 0)) == NULL) {
 			fprintf(stderr, "cannot open file %i in archive: %s\n",idx,zip_strerror(zs));
@@ -192,7 +193,7 @@ string getTextBetween(string *content, const char* begin, const char* end){
 	posB++;
 	string::size_type  posE=content->find(end,posB); 
 	if(posE==string::npos) return "";
-	return content->substr(posB,posE-posB); //Стили
+	return content->substr(posB,posE-posB); //РЎС‚РёР»Рё
 }
 
 string getOfficeText(string *content){	
@@ -216,7 +217,7 @@ void parseAndReplace(string *content, const string xmlStr){
 		}else break;
 		pos0=pos+2; //strlen("\">")
 //		fprintf(stderr,"xmlStr[pos0]==%i\nxmlStr[pos0+1]==%i\n", xmlStr[pos0], xmlStr[pos0+1]);
-		while (xmlStr[pos0]==0xD) pos0+=2; //Есть возможность попасть на перенос строки - надо ее учесть
+		while (xmlStr[pos0]==0xD) pos0+=2; //Р•СЃС‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРѕРїР°СЃС‚СЊ РЅР° РїРµСЂРµРЅРѕСЃ СЃС‚СЂРѕРєРё - РЅР°РґРѕ РµРµ СѓС‡РµСЃС‚СЊ
 		if((pos = xmlStr.find("</Field>", pos0))!=string::npos){
 			value=xmlStr.substr(pos0, pos-pos0);
 		}else break;
@@ -246,10 +247,10 @@ void parseAndReplace(string *content, const string xmlStr){
 			continue;			
 		}
 		if((posTO=key.find("\" TypeOut=\"copyfile"))!=string::npos){			
-			string odtFileContent = getContent(value.c_str()); //Извлечь content.xml из odt			
+			string odtFileContent = getContent(value.c_str()); //РР·РІР»РµС‡СЊ content.xml РёР· odt			
 			renameStylesAndObjects(&odtFileContent, value);		
 			//printf("%s\n", odtFileContent.c_str());
-			//Выделить текст и стили
+			//Р’С‹РґРµР»РёС‚СЊ С‚РµРєСЃС‚ Рё СЃС‚РёР»Рё
 			string external_office_text = getOfficeText(&odtFileContent);
 			string external_styles_text = getStylesText(&odtFileContent);
 			if(external_office_text.empty() || external_styles_text.empty()) continue;
@@ -299,7 +300,7 @@ int main(int argc, char** argv){
 	char *output_file_name = (argc>=1+4)?argv[4]:NULL;
 	bool f_open_output_file = (output_file_name == NULL);
 
-//Считывание файла	
+//РЎС‡РёС‚С‹РІР°РЅРёРµ С„Р°Р№Р»Р°	
 	struct stat sstat;
 	if(::stat(pXmlFile, &sstat)!=0){
 		fprintf(stderr,"stat %s error\n", pXmlFile);
@@ -322,7 +323,7 @@ int main(int argc, char** argv){
 		return 1;
 	}	
 	fclose(fi);
-//Смена кодировки	
+//РЎРјРµРЅР° РєРѕРґРёСЂРѕРІРєРё	
 	iconv_t iconv_handle = iconv_open ("UTF-8", "CP1251");
 	if(iconv_handle==(iconv_t)(-1)){
 		fprintf(stderr,"iconv_open error\n");
@@ -342,7 +343,7 @@ int main(int argc, char** argv){
 	
 	getTemplateFromXml(&pTemplateFile, outbuf);
 	
-//Упаковка в новый файл на базе шаблона
+//РЈРїР°РєРѕРІРєР° РІ РЅРѕРІС‹Р№ С„Р°Р№Р» РЅР° Р±Р°Р·Рµ С€Р°Р±Р»РѕРЅР°
 {
 	struct zip *zs;
 	int i, idx, err;
@@ -354,7 +355,7 @@ int main(int argc, char** argv){
     }	
     if ((idx=zip_name_locate(zs, "content.xml", ZIP_FL_NODIR|ZIP_FL_NOCASE)) != -1) {
 		struct zip_file *zf;
-	//Чтение содержимого		
+	//Р§С‚РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ		
 		static string content="";
 		if ((zf=zip_fopen_index(zs, idx, 0)) == NULL) {
 			fprintf(stderr, "cannot open file %i in archive: %s\n",idx,zip_strerror(zs));
@@ -416,7 +417,7 @@ int main(int argc, char** argv){
 	if((r = zip_close_into_new_file(zs, output_file_name))<0)
 		fprintf(stderr, "zip_close error %i %s\n", r, output_file_name);
 #ifdef _WIN32
-//Открытие созданного файла
+//РћС‚РєСЂС‹С‚РёРµ СЃРѕР·РґР°РЅРЅРѕРіРѕ С„Р°Р№Р»Р°
 	if(f_open_output_file){
 		ShellExecute(NULL, "open", output_file_name, NULL, NULL, SW_SHOWNORMAL);
 	}
